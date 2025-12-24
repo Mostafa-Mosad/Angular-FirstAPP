@@ -1,0 +1,44 @@
+<div class="container-fluid">
+    <div class="row g-4">
+        @for (product of products; track product.id) {
+        <div class="col-md-3">
+            <div class="card">
+                <img class="card-img-top" [src]="product.images[0]" alt="card img" />
+                <div class="card-body">
+                    <h4 class="card-title">{{product.title}}</h4>
+                    <p class="card-text">{{product.description}}</p>
+                    <p class="card-text">{{product.price}} EGP</p>
+                    <button (click)="currentProduct = product" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button>
+                </div>
+            </div>
+        </div>
+    }
+    @empty {
+        <h2 class="text-center">No Products Found...</h2>
+    }
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img [src] = "currentProduct.images[0]" class="w-100" alt="product img" />
+                <h5>{{currentProduct.title}}</h5>
+                <p>{{currentProduct.description}}</p>
+                <p>Price: {{currentProduct.price}} EGP</p>
+                @if (currentProduct.onSale) {
+                    <h5 class="bg-danger text-center">Sale up to 20%</h5>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
